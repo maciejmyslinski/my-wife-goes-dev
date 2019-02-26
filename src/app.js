@@ -40,6 +40,12 @@ const ExportContainer = styled.div`
   align-self: 'stretch';
 `;
 
+const Background = styled.div`
+  padding: 10%;
+  background-color: ${({ bgColor }) => bgColor};
+  display: flex;
+`;
+
 export function App() {
   const carbonNode = createRef();
   const [imgSrc, setImgSrc] = useState('');
@@ -90,20 +96,14 @@ export function App() {
     <Fragment>
       <ExportContainer>
         <ExportContainer ref={carbonNode}>
-          <div
-            style={{
-              padding: '40px',
-              backgroundColor: bgColor,
-              display: 'flex',
-            }}
-          >
+          <Background bgColor={bgColor}>
             <CodeMirror
               className="CodeMirror__container"
               options={{ mode, viewportMargin: Infinity, lineWrapping: true }}
               value={DEFAULT_CODE}
               onChange={handleCodeChange}
             />
-          </div>
+          </Background>
         </ExportContainer>
       </ExportContainer>
       <button onClick={handleButtonClick}>Export</button>
