@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React, { Fragment, createRef, useState } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import domToImage from 'dom-to-image';
-import * as hljs from 'highlight.js';
+import { highlightAuto } from 'highlight.js';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/css/css';
@@ -59,7 +59,7 @@ export function App() {
   }
 
   function handleCodeChange(editor, data, value) {
-    const detectedLanguage = hljs.highlightAuto(value).language;
+    const detectedLanguage = highlightAuto(value).language;
     setMode(detectedLanguage);
   }
 
