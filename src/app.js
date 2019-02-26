@@ -1,11 +1,13 @@
 import 'babel-polyfill';
 import React, { Fragment, createRef, useState } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
-import domToImage from 'dom-to-image';
+import styled from 'styled-components';
+import domToImage from 'dom-to-image-more';
 import hljs from 'highlight.js/lib/highlight';
 import javascript from 'highlight.js/lib/languages/javascript';
 import xml from 'highlight.js/lib/languages/xml';
 import css from 'highlight.js/lib/languages/css';
+import 'reset-css';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/css/css';
@@ -33,22 +35,30 @@ const BG_COLORS = {
   javascript: '#A899D8',
 };
 
+const ExportContainer = styled.div`
+  display: flex;
+  align-self: 'stretch';
+`;
+
 export function App() {
   const carbonNode = createRef();
   const [imgSrc, setImgSrc] = useState('');
   const [mode, setMode] = useState('javascript');
+  const bgColor = BG_COLORS[mode];
 
   async function generateImage() {
     const node = carbonNode.current;
     const width = node.offsetWidth * 2;
     const height = node.offsetHeight * 2;
+    const side = Math.max(width, height);
     const options = {
-      width,
-      height,
+      width: side,
+      height: side,
+      bgcolor: bgColor,
       style: {
-        transform: `scale(2) translate(${node.offsetWidth /
-          2}px, ${node.offsetHeight / 2}px)`,
-        'transform-origin': 'center',
+        transform: `scale(2) translate(${side / 8}px, ${(height * -1) / 8}px)`,
+        position: 'absolute',
+        top: '50%',
       },
     };
     const dataUrl = await domToImage.toBlob(carbonNode.current, options);
@@ -76,25 +86,26 @@ export function App() {
     setMode(detectedLanguage);
   }
 
-  const bgColor = BG_COLORS[mode];
-
   return (
     <Fragment>
-      <div ref={carbonNode}>
-        <div
-          style={{
-            padding: '40px',
-            backgroundColor: bgColor,
-          }}
-        >
-          <CodeMirror
-            className="CodeMirror__container"
-            options={{ mode, viewportMargin: Infinity, lineWrapping: true }}
-            value={DEFAULT_CODE}
-            onChange={handleCodeChange}
-          />
-        </div>
-      </div>
+      <ExportContainer>
+        <ExportContainer ref={carbonNode}>
+          <div
+            style={{
+              padding: '40px',
+              backgroundColor: bgColor,
+              display: 'flex',
+            }}
+          >
+            <CodeMirror
+              className="CodeMirror__container"
+              options={{ mode, viewportMargin: Infinity, lineWrapping: true }}
+              value={DEFAULT_CODE}
+              onChange={handleCodeChange}
+            />
+          </div>
+        </ExportContainer>
+      </ExportContainer>
       <button onClick={handleButtonClick}>Export</button>
       <img style={{ maxWidth: '100vw' }} src={imgSrc} />
     </Fragment>

@@ -1,12 +1,32 @@
+body,
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 /* BASICS */
+
+.CodeMirror__container {
+  background: #151e2eff;
+  border-radius: 8px;
+  display: flex;
+  overflow: hidden;
+}
 
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
+  display: flex;
   font-family: 'PT Mono', monospace;
   height: auto;
   color: #a0a3abff;
   direction: ltr;
-  border-radius: 8px;
   padding: 40px;
 }
 
@@ -265,6 +285,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   padding-bottom: 30px;
   outline: none; /* Prevent dragging from highlighting the element */
   position: relative;
+  align-self: center;
 }
 .CodeMirror-sizer {
   position: relative;
