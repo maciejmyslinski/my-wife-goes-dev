@@ -2,11 +2,18 @@ import 'babel-polyfill';
 import React, { Fragment, createRef, useState } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import domToImage from 'dom-to-image';
-import { highlightAuto } from 'highlight.js';
+import hljs from 'highlight.js/lib/highlight';
+import javascript from 'highlight.js/lib/languages/javascript';
+import xml from 'highlight.js/lib/languages/xml';
+import css from 'highlight.js/lib/languages/css';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/css/css';
 import './theme.scss';
+
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('css', css);
 
 const DEFAULT_CODE = `const pluckDeep = key => obj => key.split('.').reduce((accum, key) => accum[key], obj)
 
@@ -65,7 +72,7 @@ export function App() {
   }
 
   function handleCodeChange(editor, data, value) {
-    const detectedLanguage = highlightAuto(value).language;
+    const detectedLanguage = hljs.highlightAuto(value).language;
     setMode(detectedLanguage);
   }
 
