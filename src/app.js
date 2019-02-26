@@ -20,6 +20,12 @@ const unfold = (f, seed) => {
   return go(f, seed, [])
 }`;
 
+const BG_COLORS = {
+  xml: '#D8E2DC',
+  css: '#FFCAD4',
+  javascript: '#A899D8',
+};
+
 export function App() {
   const carbonNode = createRef();
   const [imgSrc, setImgSrc] = useState('');
@@ -63,20 +69,24 @@ export function App() {
     setMode(detectedLanguage);
   }
 
+  const bgColor = BG_COLORS[mode];
+
   return (
     <Fragment>
-      <div
-        ref={carbonNode}
-        style={{
-          position: 'relative',
-        }}
-      >
-        <CodeMirror
-          className="CodeMirror__container"
-          options={{ mode, viewportMargin: Infinity, lineWrapping: true }}
-          value={DEFAULT_CODE}
-          onChange={handleCodeChange}
-        />
+      <div ref={carbonNode}>
+        <div
+          style={{
+            padding: '40px',
+            backgroundColor: bgColor,
+          }}
+        >
+          <CodeMirror
+            className="CodeMirror__container"
+            options={{ mode, viewportMargin: Infinity, lineWrapping: true }}
+            value={DEFAULT_CODE}
+            onChange={handleCodeChange}
+          />
+        </div>
       </div>
       <button onClick={handleButtonClick}>Export</button>
       <img style={{ maxWidth: '100vw' }} src={imgSrc} />
