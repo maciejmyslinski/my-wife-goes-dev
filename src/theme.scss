@@ -15,9 +15,10 @@ html {
 
 .CodeMirror__container {
   background: #151e2eff;
-  border-radius: 8px;
+  border-radius: 0px;
   display: flex;
   overflow: hidden;
+  width: 100%;
 }
 
 .CodeMirror {
@@ -27,7 +28,8 @@ html {
   height: auto;
   color: #a0a3abff;
   direction: ltr;
-  padding: 40px;
+  padding: 15px 2px;
+  width: 100%;
 }
 
 /* PADDING */
@@ -286,10 +288,11 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   outline: none; /* Prevent dragging from highlighting the element */
   position: relative;
   align-self: center;
+  width: 100%;
 }
 .CodeMirror-sizer {
   position: relative;
-  border-right: 30px solid transparent;
+  border-right: 0px solid transparent !important;
 }
 
 /* The fake, visible scrollbars. Used to force redraw during scrolling

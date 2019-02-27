@@ -17,16 +17,20 @@ hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('xml', xml);
 hljs.registerLanguage('css', css);
 
-const DEFAULT_CODE = `const pluckDeep = key => obj => key.split('.').reduce((accum, key) => accum[key], obj)
+const DEFAULT_CODE = `const pluckDeep = key => obj => key.split('.')
 
-const compose = (...fns) => res => fns.reduce((accum, next) => next(accum), res)
+const compose = (...fns) => res => fns
 
 const unfold = (f, seed) => {
   const go = (f, seed, acc) => {
     const res = f(seed)
-    return res ? go(f, res[1], acc.concat([res[0]])) : acc
+    return res
+      ? go(f, res[1], acc.concat([res[0]]))
+      : acc
   }
   return go(f, seed, [])
+//                                           50 |
+//                                                     60 |
 }`;
 
 const BG_COLORS = {
@@ -38,12 +42,15 @@ const BG_COLORS = {
 const ExportContainer = styled.div`
   display: flex;
   align-self: 'stretch';
+  height: 590px;
+  width: 590px;
 `;
 
 const Background = styled.div`
-  padding: 10%;
+  padding: 30px 0;
   background-color: ${({ bgColor }) => bgColor};
   display: flex;
+  width: 100%;
 `;
 
 export function App() {
